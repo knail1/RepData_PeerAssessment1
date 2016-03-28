@@ -9,11 +9,33 @@ output:
 ## Loading and preprocessing the data
 
 
+  echo = TRUE
+  #A Loading and preprocessing the data
+  #1. Load the data (i.e. 𝚛𝚎𝚊𝚍.𝚌𝚜𝚟())
+  activityData <- read.csv("activity.csv")
+
+
 
 ## What is mean total number of steps taken per day?
 
+  #1. Calculate the total number of steps taken per day
+  library(plyr)
+  numStepsPerDay <- ddply(activityData, .(date), summarise, totalNumberOfSteps = sum(steps, na.rm = TRUE))
+  
+  #2. Make a histogram of the total number of steps taken each day
+  
+  # create a figure directory if not available
+  
+  # create the figure
+  par(mfrow = c(1,1))
+  png("figure/totalNumStepsPerDay-B2.png", width=480, height=480, type="quartz")
+  hist(numStepsPerDay$totalNumberOfSteps, main = paste("Histogram of total number of steps / day"))
 
-
+  #3. Calculate and report the mean and median of the total number of steps taken per day
+  meanOfTotalNumStepsPerDay <- mean(numStepsPerDay$totalNumberOfSteps, na.rm = TRUE)
+  medianOfTotalNumStepsPerDay <- median(numStepsPerDay$totalNumberOfSteps, na.rm = TRUE)
+  
+  
 ## What is the average daily activity pattern?
 
 
