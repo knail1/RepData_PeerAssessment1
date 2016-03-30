@@ -185,10 +185,10 @@ wk1 <- function() {
   
   
   
-  # create the figure for WEEKEND
-  par(mfrow = c(2,1))
-  png("figure/averageNumberStepsPerWeekendAndWeekday-E2.png", width=480, height=480, type="quartz")
-  with(avgNumStepsPerDayWeekdayAndWeekend, plot(avgNumStepsPerDayWeekdayAndWeekend$interval[avgNumStepsPerDayWeekdayAndWeekend$weekdayFactor == "weekend"]  , avgNumStepsPerDayWeekdayAndWeekend$averageNumberOfStepsPerInterval[avgNumStepsPerDayWeekdayAndWeekend$weekdayFactor == "weekend"], main = "Average steps per interval WEEKEND", xlab = "time intervals", ylab = "average number of steps", type = "l"))
+  # create the figures for WEEKEND AND WEEKDAY
+  par(mfrow re/averageNumberStepsPerWeekendAndWeekday-E2.png", width=480, height=480, type="quartz")
+  with(avgNumSpar(mfrow = c(2,1))
+  tepsPerDayWeekdayAndWeekend, plot(avgNumStepsPerDayWeekdayAndWeekend$interval[avgNumStepsPerDayWeekdayAndWeekend$weekdayFactor == "weekend"]  , avgNumStepsPerDayWeekdayAndWeekend$averageNumberOfStepsPerInterval[avgNumStepsPerDayWeekdayAndWeekend$weekdayFactor == "weekend"], main = "Average steps per interval WEEKEND", xlab = "time intervals", ylab = "average number of steps", type = "l"))
   with(avgNumStepsPerDayWeekdayAndWeekend, plot(avgNumStepsPerDayWeekdayAndWeekend$interval[avgNumStepsPerDayWeekdayAndWeekend$weekdayFactor == "weekday"]  , avgNumStepsPerDayWeekdayAndWeekend$averageNumberOfStepsPerInterval[avgNumStepsPerDayWeekdayAndWeekend$weekdayFactor == "weekday"], main = "Average steps per interval WEEKDAY", xlab = "time intervals", ylab = "average number of steps", type = "l"))
   dev.off()
   
