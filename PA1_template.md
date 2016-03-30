@@ -1,15 +1,11 @@
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
----
+# Reproducible Research: Peer Assessment 1
 
 
 ## Loading and preprocessing the data
 
 
-```{r AloadingData, echo=TRUE}
+
+```r
   #A Loading and preprocessing the data
   #1. Load the data:
   activityData <- read.csv("activity.csv")
@@ -17,14 +13,13 @@ output:
   
    #2. Process/transform the data (if necessary) into a format suitable for your analysis
   # there was no need to transform the data
-  
 ```
 
 
 ## B What is mean total number of steps taken per day?
   
-```{r BmeanSteps, echo=TRUE}
-  
+
+```r
   #1. Calculate the total number of steps taken per day.
   # I used the ddply method from the plyr package and summarized on the "date" variable, and create a new column for the sum
   # of the number of steps taken that day:
@@ -40,6 +35,11 @@ output:
   par(mfrow = c(1,1))
   #png("figure/totalNumStepsPerDay-B2.png", width=480, height=480, type="quartz")
   hist(numStepsPerDay$totalNumberOfSteps, main = paste("Histogram of total number of steps / day"))
+```
+
+![](PA1_template_files/figure-html/BmeanSteps-1.png)
+
+```r
   # dev.off()
   
   #3. Calculate and report the mean and median of the total number of steps taken per day
@@ -47,17 +47,25 @@ output:
   medianOfTotalNumStepsPerDay <- median(numStepsPerDay$totalNumberOfSteps, na.rm = TRUE)
   
   paste ("Mean of the total number of steps per day: ", meanOfTotalNumStepsPerDay)
-  paste ("Median of the total number of steps per day: ", medianOfTotalNumStepsPerDay)
-  
-  
+```
 
+```
+## [1] "Mean of the total number of steps per day:  9354.22950819672"
+```
+
+```r
+  paste ("Median of the total number of steps per day: ", medianOfTotalNumStepsPerDay)
+```
+
+```
+## [1] "Median of the total number of steps per day:  10395"
 ```
 
   
 ## What is the average daily activity pattern?
 
-```{r CavgDailyPattern, echo=TRUE}
-  
+
+```r
   #1 Make a time series plot (i.e. 𝚝𝚢𝚙𝚎 = "𝚕") of the 5-minute interval (x-axis) and
   # the average number of steps taken, averaged across all days (y-axis)
   
@@ -70,6 +78,11 @@ output:
   par(mfrow = c(1,1))
   #png("figure/averageNumberStepsPerDay-C1.png", width=480, height=480, type="quartz")
   with(avgNumStepsPerDay, plot(avgNumStepsPerDay$interval  , avgNumStepsPerDay$averageNumberOfStepsPerInterval, main = "Average Number of steps taken per interval", xlab = "time intervals", ylab = "average number of steps", type = "l"))
+```
+
+![](PA1_template_files/figure-html/CavgDailyPattern-1.png)
+
+```r
   #dev.off()
   
   
@@ -82,22 +95,29 @@ output:
   maxMinutes <- maxSlot %% 60
   
   paste("the 5 minute time slot with the max # of steps is at hour: ", maxHour, "and minute:", maxMinutes)
-  
+```
 
+```
+## [1] "the 5 minute time slot with the max # of steps is at hour:  13 and minute: 55"
 ```
 
 
 ## Imputing missing values
 
-```{r DimputingMissingValues, echo=TRUE}
-  
+
+```r
   # 1 Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with 𝙽𝙰s)
   
   
   numberOfMissingValues = length(activityData[is.na(activityData)])
   paste("number of missing values in the data set is ", numberOfMissingValues)
-  
-  
+```
+
+```
+## [1] "number of missing values in the data set is  2304"
+```
+
+```r
   # 2 Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need 
   # to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.
   
@@ -138,6 +158,11 @@ output:
   par(mfrow = c(1,1))
   #png("figure/totalNumStepsPerDay-D3.png", width=480, height=480, type="quartz")
   hist(totalNumStepsPerDay_NEW$totalNumberOfSteps, main = paste("Histogram of total number of steps / day with Missing values filled"))
+```
+
+![](PA1_template_files/figure-html/DimputingMissingValues-1.png)
+
+```r
   #dev.off()
   
   
@@ -148,25 +173,33 @@ output:
   newMedianOfTotalNumStepsPerDay <- median(totalNumStepsPerDay_NEW$totalNumberOfSteps, na.rm = TRUE)
   
   paste ("Mean of the total number of steps per day with imputed missing values : ", newMeanOfTotalNumStepsPerDay)
+```
+
+```
+## [1] "Mean of the total number of steps per day with imputed missing values :  10766.1886792453"
+```
+
+```r
   paste ("Median of the total number of steps per day with imputed missing values: ", newMedianOfTotalNumStepsPerDay)
-  
-  
-  
+```
+
+```
+## [1] "Median of the total number of steps per day with imputed missing values:  10766.1886792453"
+```
+
+```r
   # What is the impact of imputing missing data on the estimates of the total daily number of steps?
   
   # the impact of imputing the missing data is that the total # of steps in the early part of the day (13->5) were calculated less and the middle of the
   # were much more (27->35)
-  
-
 ```
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
 
-```{r EweekendDiffs, echo=TRUE}
-  
-  
+
+```r
   # 0  first we create another DF where we will add a weekday column:
   activityData_noNA_with_weekdays <- activityData_noNA
   
@@ -189,8 +222,21 @@ output:
   avgWeekdaySteps <- mean(c(monSteps, tueSteps, wedSteps, thuSteps, friSteps))
   
   paste ("average number of daily steps on weekend are: ", avgWeekendSteps)
+```
+
+```
+## [1] "average number of daily steps on weekend are:  97612.1886792453"
+```
+
+```r
   paste ("average number of daily steps on weekday are: ", avgWeekdaySteps)
-  
+```
+
+```
+## [1] "average number of daily steps on weekday are:  92302.6264150943"
+```
+
+```r
   # 1 Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
   
   activityData_noNA_with_weekdays$weekdayFactor[activityData_noNA_with_weekdays$weekdays == "Saturday"] <- "weekend"
@@ -218,10 +264,12 @@ output:
   par(mfrow = c(2,1))
   with(avgNumStepsPerDayWeekdayAndWeekend, plot(avgNumStepsPerDayWeekdayAndWeekend$interval[avgNumStepsPerDayWeekdayAndWeekend$weekdayFactor == "weekend"]  , avgNumStepsPerDayWeekdayAndWeekend$averageNumberOfStepsPerInterval[avgNumStepsPerDayWeekdayAndWeekend$weekdayFactor == "weekend"], main = "Average steps per interval WEEKEND", xlab = "time intervals", ylab = "average number of steps", type = "l"))
   with(avgNumStepsPerDayWeekdayAndWeekend, plot(avgNumStepsPerDayWeekdayAndWeekend$interval[avgNumStepsPerDayWeekdayAndWeekend$weekdayFactor == "weekday"]  , avgNumStepsPerDayWeekdayAndWeekend$averageNumberOfStepsPerInterval[avgNumStepsPerDayWeekdayAndWeekend$weekdayFactor == "weekday"], main = "Average steps per interval WEEKDAY", xlab = "time intervals", ylab = "average number of steps", type = "l"))
-  #dev.off()
-  
-  
+```
 
+![](PA1_template_files/figure-html/EweekendDiffs-1.png)
+
+```r
+  #dev.off()
 ```
 
 
